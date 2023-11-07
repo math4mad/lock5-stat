@@ -25,3 +25,15 @@ function  print_freqtable(data::AbstractDataFrame)
 end
 
 data|>make_freqtable|>print_freqtable
+
+#= 
+┌────────┬─────────┬───────┬─────────┬───────┐
+│   Type │ Academy │ Nobel │ Olympic │ Total │
+│ String │   Int64 │ Int64 │   Int64 │ Int64 │
+├────────┼─────────┼───────┼─────────┼───────┤
+│   Male │      11 │    63 │     100 │   174 │
+│ Female │      19 │    68 │      64 │   151 │
+│  Total │      30 │   131 │     164 │   325 │
+└────────┴─────────┴───────┴─────────┴───────┘
+=#
+

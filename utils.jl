@@ -19,6 +19,13 @@ function load_data(str::String)
         return df
 end
 
+function load_csv(str::String)
+    fetch(str) = str |> d -> CSV.File("./data/$str.csv") |> DataFrame |> dropmissing
+    #to_ScienceType(d)=coerce(d,:Condition=>Multiclass)
+    df = fetch(str)
+    return df
+end
+
 
 """
     freq_table(df;typename=nothing)
@@ -169,3 +176,10 @@ end
 
 
 #end
+
+Base.@kwdef struct  Lock5Table
+    page::Int
+    name::AbstractString
+    question:: AbstractString
+    feature::Vector{Union{AbstractString,Symbol}}
+end

@@ -23,5 +23,6 @@ function plot_dotplot()
     end
 fig
 end
+plot_dotplot()
 #fig=plot_dotplot();save("dotplot-longevity-mammals.png",fig)
 
