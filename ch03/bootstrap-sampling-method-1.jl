@@ -34,7 +34,14 @@ cil = 0.95
     bootstraping 包装方法
 """
 bs(data) = bootstrap(std,data, BasicSampling(n_boot))
-round2(data)=round(data,digits=2)
+
+
+"""
+    round2(data::Float64)
+
+保留两位小数
+"""
+round2(data::Float64)=round(data,digits=2)
 
 """
     stat_res(bs::BootstrapSample)

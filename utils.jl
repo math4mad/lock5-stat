@@ -144,6 +144,26 @@ function plot_2feature_boxplot(gdf::GroupedDataFrame,title::String,feature::Unio
         for (idx,df) in enumerate(gdf)
             n=nrow(df)
             boxplot!(ax,fill(idx,n),df[!,feature[2]])
+          
+        end
+        fig
+    end
+
+"""
+xtick 目前工作不正常
+"""
+function plot_2feature_rotate_boxplot(gdf::GroupedDataFrame,title::String,feature::Union{Vector{String},Vector{Symbol}})
+        cats= @pipe keys(gdf).|>values(_)[1]
+        fig=Figure(resolution=(600,400))
+        ax=Axis(fig[1,1];title=title)
+        
+        
+        Box(fig[1,1];color = (:orange,0.1),strokewidth=0.5)
+        ax.yticks=(1:length(cats), [cats...])
+        for (idx,df) in enumerate(gdf)
+            n=nrow(df)
+           plt=boxplot!(ax,fill(idx,n),df[!,feature[2]])
+           rotate!(plt, -π/2)
         end
         fig
     end

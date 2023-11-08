@@ -10,12 +10,13 @@
 
 """
 
-include("utils.jl")
+include("../utils.jl")
 using GLMakie,CSV,DataFrames,Random,StatsBase,PrettyTables,Pipe,TableTransforms
 
 desc=Lock5Table(239,"BaseballSalaries2019","sampling distribution",[:Name,:Salary])
-data=@pipe load_data(desc.name)|>select(_,desc.feature[2])
-μ=data[:,1]|>mean  
+data=@pipe load_csv(desc.name)|>select(_,desc.feature[2])
+μ=data[:,1]|>mean 
+ 
 "从总体抽取 30 个个体"
 sample_mean=(i)->@pipe data|>Sample(30, replace=true)|>_[:,1]|>mean
 
