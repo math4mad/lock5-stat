@@ -26,6 +26,13 @@ function load_csv(str::String)
     return df
 end
 
+"""
+    list_features(df::AbstractDataFrame)
+
+列出 dataframe  names
+"""
+list_features(df::AbstractDataFrame)=show(names(df))::Nothing
+
 
 """
     freq_table(df;typename=nothing)
@@ -115,6 +122,31 @@ function pair_data(str::String,feature::Array{Union{String,Symbol},2})::Abstract
     return  @pipe load_data(str)|>select(_,feature)
 end
 
+
+
+"""
+    plot_2feature_boxplot(gdf::GroupedDataFrame,title::String,feature::Union{Vector{String},Vector{Symbol}})
+    
+两个属性的 boxplot 
+
+Arugments:
+
+1. gdf:  GroupedDataFrame
+2. title: plot name
+3. feature 第一个 feature 为分组变量, 第二个为数值变量
+"""
+function plot_2feature_boxplot(gdf::GroupedDataFrame,title::String,feature::Union{Vector{String},Vector{Symbol}})
+        cats= @pipe keys(gdf).|>values(_)[1]
+        fig=Figure(resolution=(600,400))
+        ax=Axis(fig[1,1];title=title)
+        Box(fig[1,1];color = (:orange,0.1),strokewidth=0.5)
+        ax.xticks=(1:length(cats), [cats...])
+        for (idx,df) in enumerate(gdf)
+            n=nrow(df)
+            boxplot!(ax,fill(idx,n),df[!,feature[2]])
+        end
+        fig
+    end
 
 Base.@kwdef struct  Lock5Table
     page::Int
