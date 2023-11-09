@@ -3,11 +3,11 @@ bootstrap sampling
 dotplot 根据置信区间选择颜色
 """
 
-include("utils.jl")
+include("../utils.jl")
 using GLMakie,CSV,DataFrames,Random,StatsBase,PrettyTables,Pipe,TableTransforms,Bootstrap
 using Makie.Colors
 desc=Lock5Table(270,"CommuteAtlanta","bootstrap sampling ",[:Distance,:Time])
-data=@pipe load_data(desc.name)|>select(_,desc.feature[2])
+data=@pipe load_csv(desc.name)|>select(_,desc.feature[2])
 mean_and_std(data[:,1])  #(29.11, 20.71831066456885)
 
 #1. dotplot

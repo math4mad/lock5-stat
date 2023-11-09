@@ -168,6 +168,14 @@ function plot_2feature_rotate_boxplot(gdf::GroupedDataFrame,title::String,featur
         fig
     end
 
+"""
+    peek(df::AbstractDataFrame)
+
+show  first 5 row of  dataframe
+"""
+function peek(df::AbstractDataFrame)
+    first(df,5)
+end
 Base.@kwdef struct  Lock5Table
     page::Int
     name::AbstractString
@@ -229,9 +237,12 @@ end
 
 #end
 
+
 Base.@kwdef struct  Lock5Table
     page::Int
     name::AbstractString
     question:: AbstractString
     feature::Vector{Union{AbstractString,Symbol}}
 end
+
+

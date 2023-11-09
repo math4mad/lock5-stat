@@ -25,45 +25,46 @@ Last Group (8 rows): Condition = "Dark"
 备择假设: 两组体重均数有差异, 这个差异用抽样误差无法解释
 """ 
 
-include("utils.jl")
+
+## 1. load package
+include("../utils.jl")
 using HypothesisTests,GLMakie,CSV,DataFrames
 
 
 
-# 获取分组数据:  csv|>dataframe|>group
-gdf= (let str="LightatNight8weeks"
-df=load_data(str)
-gdf=groupby(df[!,1:2],:Condition)
-gdf
-end)
 
-# 配对 t检验方法
-EqualVarianceTTest(gdf[1][!,2],gdf[2][!,2])
+## 2. load data
+desc=Lock5Table(302,"LightatNight"," data4.1 Does Light at Night Affect Weight Gain?",["Group","BMGain"])
+df=@pipe load_csv(desc.name)
+gdf=groupby(df,:Group)
+
+## 3.  配对t检验方法
+EqualVarianceTTest(gdf[1].BMGain,gdf[2].BMGain)
 
 #=
     Two sample t-test (equal variance)
-    ----------------------------------
-    Population details:
-        parameter of interest:   Mean difference
-        value under h_0:         0
-        point estimate:          5.08375
-        95% confidence interval: (2.687, 7.481)
+----------------------------------
+Population details:
+    parameter of interest:   Mean difference
+    value under h_0:         0
+    point estimate:          2.61825
+    95% confidence interval: (0.1534, 5.083)
 
-    Test summary:
-        outcome with 95% confidence: reject h_0
-        two-sided p-value:           0.0004
+Test summary:
+    outcome with 95% confidence: reject h_0
+    two-sided p-value:           0.0387
 
-    Details:
-        number of observations:   [9,8]
-        t-statistic:              4.5207847706569755
-        degrees of freedom:       15
-        empirical standard error: 1.1245282086855932
+Details:
+    number of observations:   [10,8]
+    t-statistic:              2.2518322542402562
+    degrees of freedom:       16
+    empirical standard error: 1.1627198229662852
 
-
-"""
 
 """
-结论: 双侧 p 值0.0004< 0.05 所以可以拒绝 h_0
+
+"""
+结论: 双侧 p 值0.0387< 0.05 所以可以拒绝 h_0
 可以推测夜间光照的小鼠体重增加要高于正常灯光控制的小鼠
 """
 =#

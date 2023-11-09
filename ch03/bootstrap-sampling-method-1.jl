@@ -4,7 +4,7 @@ using Bootstrap.jl 软件包
 """
 
 
-include("$(pwd())/utils.jl")
+include("../utils.jl")
 using GLMakie,CSV,DataFrames,Random,PrettyTables,Pipe
 using Bootstrap,StatsBase
 Random.seed!(3434343)

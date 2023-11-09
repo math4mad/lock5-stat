@@ -16,7 +16,7 @@ using GLMakie,CSV,DataFrames,Random,StatsBase,PrettyTables,Pipe,TableTransforms
 desc=Lock5Table(239,"BaseballSalaries2019","sampling distribution",[:Name,:Salary])
 data=@pipe load_csv(desc.name)|>select(_,desc.feature[2])
 μ=data[:,1]|>mean 
- 
+
 "从总体抽取 30 个个体"
 sample_mean=(i)->@pipe data|>Sample(30, replace=true)|>_[:,1]|>mean
 
@@ -46,4 +46,4 @@ function plot_dotplot(gd::GroupedDataFrame)
    fig
 end
 
-fig=plot_dotplot(gd);#save("baseball-salary-2000samples-mean-dotplot.png",fig)
+fig=plot_dotplot(gd) #save("baseball-salary-2000samples-mean-dotplot.png",fig)
