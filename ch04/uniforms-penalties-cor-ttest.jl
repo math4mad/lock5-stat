@@ -1,9 +1,9 @@
 """
 The null hypothesis is 𝜌 = 0, which means that NFL_Malevolence and ZPenYds are really unrelated.
- 
+方法参见  [correlation-test](/HypothesisTests.jl/doc/multivariate/#Correlation-and-partial-correlation-test)
 """
 
-include("$(pwd())/utils.jl")
+include("../utils.jl")
 using HypothesisTests,GLMakie,CSV,DataFrames,Distributions
 using StatsBase,DataFramesMeta,Pipe
 

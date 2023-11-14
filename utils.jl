@@ -238,6 +238,18 @@ end
 #end
 
 
+"""
+    make_ttest(desc::Lock5Table)
+
+输入两列 dataframe,执行配对 t 检验
+"""
+function make_ttest(desc::Lock5Table)
+    data=@pipe load_csv(desc.name)|>select(_,desc.feature)|>groupby(_,desc.feature[1])
+    #cats=@pipe keys(data).|>values(_).|>_[1] #group1:yes,group2:no
+    EqualVarianceTTest(data[1][!,desc.feature[2] ],data[2][!,desc.feature[2]]) 
+end
+
+
 Base.@kwdef struct  Lock5Table
     page::Int
     name::AbstractString

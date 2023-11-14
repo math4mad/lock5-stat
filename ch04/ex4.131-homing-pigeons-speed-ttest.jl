@@ -14,20 +14,25 @@ feature=["Sex","Speed"]  #(H for hens and C for cocks)
 结论 :  雌雄鸽子的归巢能够力无差异
 """
 
-include("$(pwd())/utils.jl")
+
+## 1. load package
+include("../utils.jl")
 using HypothesisTests,GLMakie,CSV,DataFrames
 using Statistics,DataFramesMeta,Pipe
-str="HomingPigeons"
-feature=["Sex","Speed"]  #(H for hens and C for cocks)
-data=@pipe load_data(str)|>select(_,feature)|>groupby(_,feature[1])
+
+## 2. load data
+desc=Lock5Table(351,"HomingPigeons","AreFemaleorMaleHomingPigeonsFaster?",["Sex","Speed"])
+data=@pipe load_csv(desc.name)|>select(_,desc.feature)|>groupby(_,desc.feature[1])
 cats=@pipe keys(data).|>values(_).|>_[1]
 
 
-# 1 执行 f-test 检查方差差异
-VarianceFTest(data[1][!,feature[2] ],data[2][!,feature[2]]) # fail to reject h_0
+## 3. test
 
-# 2 执行两样本配对 t 检验  
-EqualVarianceTTest(data[1][!,feature[2] ],data[2][!,feature[2]]) 
+### 3.1 执行 f-test 检查方差差异
+VarianceFTest(data[1][!,desc.feature[2] ],data[2][!,desc.feature[2]]) # fail to reject h_0
+
+### 3.2 执行两样本配对 t 检验  
+EqualVarianceTTest(data[1][!,desc.feature[2] ],data[2][!,desc.feature[2]]) 
 #= Two sample t-test (equal variance)
 ----------------------------------
 Population details:

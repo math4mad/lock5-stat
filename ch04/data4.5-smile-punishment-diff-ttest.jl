@@ -6,14 +6,14 @@ h_a:  diii ≠ 0
 
 """
 
-include("$(pwd())/utils.jl")
+include("../utils.jl")
 using HypothesisTests,GLMakie,CSV,DataFrames,Distributions
 using StatsBase,DataFramesMeta,Pipe
 
 desc=Lock5Table(342,"Smiles","Can a simple smile have an effect on punishment assigned following an infraction??",["Leniency","Group"])
 gdf=@pipe load_data(desc.name)|>groupby(_,desc.feature[2])
-
-res=EqualVarianceTTest(gdf[1][!,1],gdf[2][!,1])
+#sample1=
+#res=EqualVarianceTTest(gdf[1][!,1],gdf[2][!,1])
 
 #= 
     Two sample t-test (equal variance)

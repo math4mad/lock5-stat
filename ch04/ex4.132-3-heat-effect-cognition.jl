@@ -1,26 +1,16 @@
 
 
-include("$(pwd())/utils.jl")
+include("../utils.jl")
 using HypothesisTests,GLMakie,CSV,DataFrames
 using Statistics,DataFramesMeta,Pipe
 
-Base.@kwdef struct  Lock5Table
-    page::Int
-    name::AbstractString
-    question:: AbstractString
-    feature::Vector{AbstractString}
-end
 
 
 
 desc1=Lock5Table(351,"HeatCognition","DoesHeatAffectMathReactionTime?",["AC","MathZRT"])
 desc2=Lock5Table(352,"HeatCognition","Does Heat Affect Color Dissonance Reaction Time??",["AC","ColorsZRT"])
 
-function make_ttest(desc)
-    data=@pipe load_data(desc.name)|>select(_,desc.feature)|>groupby(_,desc.feature[1])
-    #cats=@pipe keys(data).|>values(_).|>_[1] #group1:yes,group2:no
-    EqualVarianceTTest(data[1][!,desc.feature[2] ],data[2][!,desc.feature[2]]) 
-end
+
 
 make_ttest(desc1)
 #= 

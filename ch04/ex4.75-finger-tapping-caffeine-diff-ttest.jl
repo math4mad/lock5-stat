@@ -4,16 +4,23 @@ question: 喝咖啡是否影响手指抽动?
 h_0:  diff = 0
 h_a:  diii ≠ 0
 
+
+res    p-value:           0.0032
+p-value<0.05因此拒绝 0 假设, 认为喝咖啡对手指抽动有影响
 """
 
-include("$(pwd())/utils.jl")
-using HypothesisTests,GLMakie,CSV,DataFrames,Distributions
-using StatsBase,DataFramesMeta,Pipe
+## 1. load packge
+    include("../utils.jl")
+    using HypothesisTests,GLMakie,CSV,DataFrames,Distributions
+    using StatsBase,DataFramesMeta,Pipe
 
-desc=Lock5Table(331,"CaffeineTaps","Finger Tapping and Caffeine?",["Taps","Group"])
-gdf=@pipe load_data(desc.name)|>groupby(_,desc.feature[2])
+## 2. load pcakge
+    desc=Lock5Table(331,"CaffeineTaps","Finger Tapping and Caffeine?",["Taps","Group"])
+    gdf=@pipe load_data(desc.name)|>groupby(_,desc.feature[2])
 
-res=EqualVarianceTTest(gdf[1][!,1],gdf[2][!,1])
+
+## 3. test
+    res=EqualVarianceTTest(gdf[1][!,1],gdf[2][!,1])
 
 #= 
     Two sample t-test (equal variance)
