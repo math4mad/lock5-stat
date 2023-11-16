@@ -5,7 +5,7 @@ locks5 stat page 375
 
 """
 
-include("$(pwd())/utils.jl")
+include("../utils.jl")
 using HypothesisTests,GLMakie,CSV,DataFrames,ScientificTypes,PrettyTables
 using Statistics
 

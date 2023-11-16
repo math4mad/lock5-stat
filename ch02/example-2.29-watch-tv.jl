@@ -14,7 +14,7 @@ ax2=Axis(fig[2,1],xlabel="TV",ylabel="Count",title="female",limits = (0,40,0,35)
 Box(fig[1,1];color = (:yellow,0.1),strokewidth=0.2)
 Box(fig[2,1];color = (:yellow,0.1),strokewidth=0.2)
 
-function plot_dotplot(df,ax)
+function plot(df,ax)
     xs=@pipe keys(df).|>values(_)[1]
     ys=[nrow(g) for g in df]
 
