@@ -17,9 +17,8 @@ describe:
 """
 
 
-include(../../utils.jl")
-using HypothesisTests,GLMakie,CSV,DataFrames,ScientificTypes
-using Statistics,DataFramesMeta,Pipe
+include("../../utils.jl")
+
 
   df= (let str="YoungBlood"
       df=load_data(str)

@@ -6,16 +6,11 @@
 和mtcar 数据集一样, 如果我们有一组内存和 cpu的数据, 可以从这些属性上推断打印机的价格. 或者推断打印速度
 """
 
-include("$(pwd())/utils.jl")
-using HypothesisTests,GLMakie,CSV,DataFrames,Distributions,RCall,GLMakie,LinearAlgebra
-using GLM
+include("../../utils.jl")
 
-df= (let str="InkjetPrinters"
-    df=load_data(str)
+desc=Lock5Table(617,"InkjetPrinters","predict laserjet printer price",[:PPM,:Price])
+data= @pipe load_csv(desc.name)|>select(_,desc.feature)
     
-end)
-
-data=select(df,[:PPM,:Price])
 
 function plot_raw_data()
     fig=Figure()

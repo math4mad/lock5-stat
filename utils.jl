@@ -1,5 +1,6 @@
 
 include("./types.jl")  # struct
+using  LinearAlgebra
 using  DataFrames,DataFramesMeta,CSV,NamedArrays,FreqTables,ScientificTypes
 using  Pipe,ColorSchemes,PrettyTables
 using  UnicodePlots,GLMakie
@@ -86,7 +87,7 @@ end
     plot 多组配对属性scatter
 
 """
-function plot_cor_group(data::SubDataFrame)
+function plot_cor_group(data::DataFrame)
     cats = names(data)
     combinations_x = combinations(1:length(cats), 2)
     cbarPal = :thermal
@@ -364,4 +365,41 @@ n=size.(group_data, 1),
 Mean=mean.(group_data),
 Stddev=std.(group_data)
 )
+end
+
+
+function plot_cormatrix(desc::Lock5Table,ma::Matrix)
+    fig=Figure()
+    ax=Axis(fig[1,1],yreversed=true)
+    ax.xticks=(1:5,desc.feature)
+    ax.yticks=(1:5,desc.feature)
+    hm=heatmap!(ax,ma)
+    Colorbar(fig[1, 2], hm)
+    fig
+    #save("./ch09/studentsurvey-cormatrix.png",fig)
+end
+
+
+"""
+    plot_reg_data(data::AbstractDataFrame, desc::Lock5Table, xtest::Vector{Float64}, yhat::Vector{Float64})
+
+绘制一元回归曲线原始数据点和拟合曲线
+
+## Arguments
+
+1. data: 两列 dataframe , 预测变量为第一列, 响应变量为第二列
+2. desc:  lock5stat table struct
+3. xtest: 测试值
+4. yhat: 预测值
+"""
+function plot_reg_data(data::AbstractDataFrame, desc::Lock5Table, xtest::Vector{Float64}, yhat::Vector{Float64})
+
+    fig = Figure()
+    ax = Axis(fig[1, 1], xlabel=desc.feature[1], ylabel=desc.feature[2], title=desc.question)
+    scatter!(ax, eachcol(data)...; markersize=10, color=(:lightgreen, 0.3),
+        strokecolor=:black, strokewidth=2)
+    lines!(ax, xtest, yhat, label="fitting line", linewidth=3, color=:blue)
+    axislegend()
+    
+    fig
 end

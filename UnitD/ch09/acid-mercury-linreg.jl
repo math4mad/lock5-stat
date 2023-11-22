@@ -6,12 +6,9 @@ rmsd=3.966
 """
 
 
-include("utils.jl")
+include("../../utils.jl")
 
-using GLMakie,CSV,DataFrames
-using DataFramesMeta,StatsBase
-using GLM,LinearAlgebra
-
+import GLM:predict,coef,residuals
 
 data_str="FloridaLakes"
 feature=["pH","AvgMercury"]
@@ -62,5 +59,5 @@ function plot_residuals()
 end
 #plot_residuals()
 
-save("acid-mercury-linreg-model.png",fig)
+#save("acid-mercury-linreg-model.png",fig)
 

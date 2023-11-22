@@ -4,7 +4,7 @@ page 656
 """
 
 
-include("$(pwd())/utils.jl")
+include("../../utils.jl")
 
 using GLMakie,CSV,DataFrames,LinearAlgebra
 using DataFramesMeta,Pipe,ColorSchemes

@@ -1,9 +1,6 @@
 
 
-include("$(pwd())/utils.jl")
-
-using GLMakie,CSV,DataFrames,GLM,LinearAlgebra
-using DataFramesMeta,Pipe,ColorSchemes
+include("../../utils.jl")
 
 
 desc=Lock5Table(651,"FacebookFriends","socialnetworks-brain-structure",["GMdensity","FBfriends"])

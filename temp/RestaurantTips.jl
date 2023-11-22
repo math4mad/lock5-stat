@@ -19,7 +19,7 @@ rmsd=3.966
 """
 
 
-include("utils.jl")
+include("../utils.jl")
 
 using GLMakie,CSV,DataFrames
 using DataFramesMeta,StatsBase

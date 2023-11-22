@@ -1,9 +1,8 @@
 
 
-include("$(pwd())/utils.jl")
+include("../../utils.jl")
 
-using GLMakie,CSV,DataFrames,GLM,LinearAlgebra
-using DataFramesMeta,Pipe,ColorSchemes
+
 
 
 desc=Lock5Table(648,"StudentSurvey","verbal-gpa-linreg",["VerbalSAT","GPA"])

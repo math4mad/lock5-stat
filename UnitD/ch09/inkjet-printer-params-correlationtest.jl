@@ -2,7 +2,7 @@
 使用 CorrelationTest(x, y) 检验两个变量的相关性
 """
 
-include("$(pwd())/utils.jl")
+include("../../utils.jl")
 using HypothesisTests,GLMakie,CSV,DataFrames,Distributions,RCall,GLMakie,LinearAlgebra
 using GLM,Pipe
 
