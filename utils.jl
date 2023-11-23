@@ -1,11 +1,16 @@
+"""
+
+"""
 
 include("./types.jl")  # struct
-using  LinearAlgebra
+using  LinearAlgebra,Parameters
 using  DataFrames,DataFramesMeta,CSV,NamedArrays,FreqTables,ScientificTypes
 using  Pipe,ColorSchemes,PrettyTables
 using  UnicodePlots,GLMakie
 using  StatsBase,Combinatorics,HypothesisTests,Distributions,Bootstrap,AnovaBase,AnovaGLM
 using  RCall
+using  Printf
+import GLM: coef, predict,confint,residuals
 #export  load_data,freq_table,plot_pair_cor,pair_corletation, pair_data,Lock5Table,SingleSampleTTest,
 #make_cor_ttest
 
@@ -401,5 +406,43 @@ function plot_reg_data(data::AbstractDataFrame, desc::Lock5Table, xtest::Vector{
     lines!(ax, xtest, yhat, label="fitting line", linewidth=3, color=:blue)
     axislegend()
     
+    fig
+end
+
+"""
+    plot_linreg(data::AbstractDataFrame,model::StatsModels.TableRegressionModel)::Figure
+
+plot GLM LinearRegression model with  two column dataframe data
+"""
+function plot_linreg(data::AbstractDataFrame,model::StatsModels.TableRegressionModel)::Figure
+    @assert size(data,2)==2
+    fig,ax,_=scatter(eachcol(data)...;markersize=8,color=(:lightgreen,0.5),strokecolor = :black, strokewidth =1)
+    ax.xlabel,ax.ylabel=names(data)
+    ablines!(coef(model)...;label="fitting line", linewidth=2, color=:blue)
+    axislegend()
+    fig
+end
+
+
+"""
+    plot_linreg_residuals(model::StatsModels,data::AbstractDataFrame)
+
+    plot GLM LinearRegression model residuals results with  two column dataframe data
+"""
+function plot_linreg_residuals(model::StatsModels.TableRegressionModel,data::AbstractDataFrame)
+    @assert size(data,2)==2
+    resis=residuals(model)
+    coefs=coef(model)
+    labels=names(data)
+    y_hat=predict(model)
+    fig=Figure(resolution=(1200,400))
+    axs=[Axis(fig[1,i]) for i in 1:3]
+    axs[1].xlabel=labels[1];axs[1].ylabel=labels[2]
+    axs[2].xlabel="Residuals";axs[2].ylabel="Frequency"
+    axs[3].xlabel="Fit Value";axs[3].ylabel="Residuals"
+    scatter!(axs[1],eachcol(data)...;marker='o',color=:red)
+    ablines!(axs[1],coefs..., linewidth=2, color=:blue)
+    hist!(axs[2],resis;bins=15,color = :gray, strokewidth = 1, strokecolor = :black)
+    scatter!(axs[3],y_hat,resis;marker='o',color=:red)
     fig
 end

@@ -43,7 +43,7 @@ Sugars        4.31026    0.926928  4.65    <1e-04    2.41154    6.20899
 =#
 
 ## anova lm
-anova_lm(@formula( Calories~Sugars), data)
+model2=anova_lm(@formula( Calories~Sugars), data)
 
 #= 
  Analysis of Variance
@@ -61,3 +61,4 @@ Sugars         1   15316.51     15316.51   21.6230    <1e-04
 (Residuals)   28   19833.65       708.34              
 ────────────────────────────────────────────────────────────
 =#
+

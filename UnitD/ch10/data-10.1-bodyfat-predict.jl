@@ -1,16 +1,15 @@
 
 """
-喷墨打印机的价格的线性模型
+body fat predict with several predict variables
 """
 
 
-include("utils.jl")
-using HypothesisTests,CSV,DataFrames,Distributions,GLMakie,StatsBase,Pipe
-using GLM,AnovaGLM
+include("../../utils.jl")
 
-desc=Lock5Table(678,"BodyFat","cause direct measure bodyfat not aviable, so try to predict bodyfat with other params",["Age","Weight","Height","Neck","Chest","Abdomen","Ankle","Biceps","Wrist","Bodyfat"])
 
-data=@pipe load_data(desc.name)
+desc=Lock5Table(656,"BodyFat","cause direct measure bodyfat not aviable, so try to predict bodyfat with other params",["Age","Weight","Height","Neck","Chest","Abdomen","Ankle","Biceps","Wrist","Bodyfat"])
+
+data=@pipe load_csv(desc.name)
 
 full_lm=lm(@formula(Bodyfat ~ Age+Weight+Height+Neck+Chest+Abdomen+Ankle+Biceps+Wrist), data)
 

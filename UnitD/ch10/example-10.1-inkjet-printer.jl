@@ -1,28 +1,31 @@
 """
-喷墨打印机的价格的线性模型
-
+chapter:
+page 655  Example 10.1
+data:InkjetPrinters
 
 """
 
-include("utils.jl")
-using HypothesisTests,CSV,DataFrames,Distributions,GLMakie,StatsBase
-using GLM,Pipe
 
-desc=Lock5Table(678,"InkjetPrinters","mutliple regression ",["PPM","CostBW","Price"])
+## 1. load package
 
-data=@pipe load_data(desc.name)|>select(_,desc.feature)
+include("../../utils.jl")
 
-fitmodel=lm(@formula(Price ~ PPM+CostBW), data)
+
+## 2. load data
+
+desc=Lock5Table(655,"InkjetPrinters","mutliple regression ",["PPM","CostBW","Price"])
+df=@pipe load_csv(desc.name)
+data=select(df,desc.feature)
+
+
+## 3. lin reg
+model=lm(@formula(Price ~ PPM+CostBW), data)
 #round.(coef(res), digits=3)
 
-function f(p,c)
-    input=[1,p,c]
-    coef(res)'⋅input
-end
 
+## 4. plot residuals
 
-
-@pipe residuals(fitmodel)|>zscore|>stem   #plot all  data  residuals
+@pipe residuals(model)|>zscore|>stem   #plot all  data  residuals
 #save("./ch10/imgs/inkjet-printer-multiple-reg.png",fig)
 
 #= 
@@ -42,3 +45,26 @@ end
     所以两个参数都参与回归模型的建立
 =#
 
+## 
+
+
+## 4. predict example
+
+kodak=filter(:Model=>==("Kodak ESP Office 2170 All-in-One Printer"),df)
+
+predict(model, kodak;interval= :confidence,level=0.95)
+
+#= 
+1×3 DataFrame
+ Row │ prediction  lower     upper    
+     │ Float64?    Float64?  Float64? 
+─────┼────────────────────────────────
+   1 │     185.34   158.698   211.982
+=#
+
+
+## 6. nest model
+#nest_lms = nestedmodels(LinearModel, @formula(Price ~ PPM*CostBW),data; dropcollinear = false)
+#anova(nest_lms)
+
+    
