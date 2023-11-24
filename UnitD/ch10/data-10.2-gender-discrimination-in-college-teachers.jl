@@ -6,16 +6,16 @@ Gender (coded 0 = female and
 """
 
 
-include("utils.jl")
-using HypothesisTests,CSV,DataFrames,Distributions,GLMakie,StatsBase,Pipe
-using GLM,AnovaGLM
+include("../../utils.jl")
+
 
 desc=Lock5Table(705,"SalaryGender","Gender Discrimination among College Teachers?",["Gender","Salary"])
 
 data=@pipe load_data(desc.name)
 gdf=groupby(data,:Gender)
 cats=["F","M"]
-EqualVarianceTTest(gdf[1][:,:Salary],gdf[2][:,:Salary])
+group_data=[df.Salary for df in gdf]
+EqualVarianceTTest(gdf[1].Salary,gdf[2].Salary)
 #= 
     outcome with 95% confidence: reject h_0
     two-sided p-value:           0.0092
@@ -39,6 +39,22 @@ function plot_boxplot()
     #save("gender-salary.png",fig)
 end
 
+#UnicodePlots.boxplot(cats, group_data, title="gender salary", xlabel="salary", ylabel="gender")
+
+#= 
+ gender salary               
+            ┌                                        ┐ 
+             ╷  ┌──┬────┐          ╷                   
+          F  ├──┤  │    ├──────────┤                   
+   gender    ╵  └──┴────┘          ╵                   
+             ╷  ┌─────┬────────┐                  ╷    
+          M  ├──┤     │        ├──────────────────┤    
+             ╵  └─────┴────────┘                  ╵    
+            └                                        ┘ 
+             0                 100                200  
+                              salary            
+=#
+
 
 model=lm(@formula(Salary~Gender), data)
 
@@ -59,4 +75,8 @@ model=lm(@formula(Salary~Gender), data)
   ("R²" => 0.0672425268979524, "Ftest" => F-test against the null model:
     F-statistic: 7.06 on 100 observations and 1 degrees of freedom, p-value: 0.0092)
 =#
+
+
+an=anova(model)
+
 

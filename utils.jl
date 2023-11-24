@@ -373,6 +373,12 @@ Stddev=std.(group_data)
 end
 
 
+function summary_df(gdf::GroupedDataFrame)
+    return combine(gdf,nrow=>:n ,:Price=>mean=>:Mean,:Price=>std=>:Stddev)
+end
+
+
+
 function plot_cormatrix(desc::Lock5Table,ma::Matrix)
     fig=Figure()
     ax=Axis(fig[1,1],yreversed=true)
