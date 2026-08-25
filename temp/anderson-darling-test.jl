@@ -2,7 +2,7 @@
 anderson-darling-test 检验数据是否来自于某个分布
 """
 
-include("utils.jl")
+include("../utils.jl")
 using HypothesisTests,GLMakie,CSV,DataFrames,Distributions
 
 df= (let str="BodyTemp50"

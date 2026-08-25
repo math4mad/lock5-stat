@@ -2,7 +2,7 @@
 page 112
 """
 
-include("utils.jl")
+include("../utils.jl")
 using HypothesisTests,GLMakie,CSV,DataFrames,ScientificTypes
 using Statistics,DataFramesMeta,Pipe
 

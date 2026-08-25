@@ -58,8 +58,8 @@ function  plot_res2()
 end
 
 fig=plot_res2()
-save("./ch01/imgs/data1.5-2.png",fig)
-
+#save("./ch01/imgs/data1.5-2.png",fig)
+fig
 
 
 

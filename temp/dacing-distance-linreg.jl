@@ -6,8 +6,8 @@ rmsd=3.966
 """
 
 
-include("utils.jl")
-using .Utils
+include("../utils.jl")
+#using .Utils
 using GLMakie,CSV,DataFrames
 using DataFramesMeta,StatsBase
 using GLM,LinearAlgebra

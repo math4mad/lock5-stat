@@ -3,7 +3,7 @@ page  180
 data :DDS
 """
 
-using GLMakie,CSV,DataFrames,GLMakie,LinearAlgebra
+using GLMakie,CSV,DataFrames,LinearAlgebra
 using GLM
 
 
@@ -20,12 +20,12 @@ function plot_boxplot()
     ax.title="ethnic-expenditures"
     ax.xticks =(1:length(cats),cats)
     for (idx,df) in enumerate(gdf)
-        row,col=size(df)
-        boxplot!(ax, fill(idx,row),gdf[idx][:,"Expenditures"]; label = "$(cats[idx])")
+        row,=size(df)
+        GLMakie.boxplot!(ax, fill(idx,row),gdf[idx][:,"Expenditures"]; label = "$(cats[idx])")
 
     end
     fig
-    save("ethnicity-expenditures.png",fig)
+    #save("ethnicity-expenditures.png",fig)
 end
 
 plot_boxplot()

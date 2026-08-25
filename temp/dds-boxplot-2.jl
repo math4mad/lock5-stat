@@ -31,7 +31,7 @@ function plot_boxplot()
     ax2 = Axis(fig[1, 1], xaxisposition = :top)
     ax2.xticks =([1,2.5,4.5,6.5,8.5,10.5],ages)
     fig
-    save("ethnicity-expenditures-2.png",fig)
+    #save("ethnicity-expenditures-2.png",fig)
 end
 
 plot_boxplot()

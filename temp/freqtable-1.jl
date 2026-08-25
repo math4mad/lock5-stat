@@ -13,7 +13,7 @@ function r_freqtable()
 end
 
 
-function freq_table1()
+function freq_table()
    c1=["Agree","Disagree","Don't know"]
    c2=[372,807,34]
    c3=[363,1005,44]
@@ -29,7 +29,7 @@ end
 
 
 
-function freq_table2(df;typename=nothing)
+function freq_table(df;typename=nothing)
     if typename === nothing
         typename = [["cat$i" for i in 1:size(df,1)]...,"Total"]
     end
@@ -46,5 +46,5 @@ c2=[372,807,34]
 c3=[363,1005,44]
 df=DataFrame(Male=c2,Female=c3)
 typename=["Agree","Disagree","Don't know","Total"]
-df2=freq_table2(df)
+df2=freq_table(df)
 

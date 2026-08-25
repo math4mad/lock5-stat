@@ -2,7 +2,8 @@
 page 197
 data: CollegeScores4yr
 """
-using .Utils
+
+include("../utils.jl")
 using GLMakie,CSV,DataFrames,GLMakie,LinearAlgebra
 using GLM
 

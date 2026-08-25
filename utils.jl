@@ -45,13 +45,13 @@ list_features(df::AbstractDataFrame) = show(names(df))::Nothing
 
 
 """
-    freq_table(df;typename=nothing)
+    freq_table(df::AbstractDataFrame; typename=nothing)
     返回 df 的列联表
     typename 为可选参数为第一列,表示列联表的目录项和合计
     typename=["Agree","Disagree","Don't know","Total"]
 TBW
 """
-function freq_table(df; typename=nothing)
+function freq_table(df::AbstractDataFrame; typename=nothing)
     if typename === nothing
         typename = [["cat$i" for i in 1:size(df, 1)]..., "Total"]
     end
@@ -188,18 +188,6 @@ function peek(df::AbstractDataFrame)
 end
 
 
-"""
-ProportionTTest
-
-params::Array :[observation,n,h0-rating]
- 
-"""
-Base.@kwdef struct ProportionTTest
-    page::Int
-    name::AbstractString
-    question::AbstractString
-    params::Array
-end
 
 
 """
@@ -431,11 +419,11 @@ end
 
 
 """
-    plot_linreg_residuals(model::StatsModels,data::AbstractDataFrame)
+    plot_linreg_residuals(model::StatsModels.TableRegressionModel,data::AbstractDataFrame)::Figure
 
     plot GLM LinearRegression model residuals results with  two column dataframe data
 """
-function plot_linreg_residuals(model::StatsModels.TableRegressionModel,data::AbstractDataFrame)
+function plot_linreg_residuals(model::StatsModels.TableRegressionModel,data::AbstractDataFrame)::Figure
     @assert size(data,2)==2
     resis=residuals(model)
     coefs=coef(model)
