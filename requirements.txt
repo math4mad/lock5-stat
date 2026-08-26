@@ -1,0 +1,9 @@
+# Lock5Stat (python branch) — marimo notebook dependencies
+# Install into the `lock5stat-env` conda environment.
+marimo==0.24.0
+polars==1.44.0
+great_tables==0.24.0
+scipy==1.18.1
+numpy==2.5.2
+matplotlib==3.11.1
+statsmodels==0.14.6
