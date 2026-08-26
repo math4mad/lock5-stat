@@ -131,6 +131,34 @@ def freq_table(df: pl.DataFrame, typename: Sequence[str] | None = None) -> pl.Da
     return out
 
 
+def freqtable(df: pl.DataFrame, c1: str, c2: str | None = None) -> pl.DataFrame:
+    """Cross-tabulation of one or two categorical columns.
+
+    Port of FreqTables.jl ``freqtable(df, c1)`` / ``freqtable(df, c1, c2)``.
+    Categories keep first-appearance order (matching DataFrames.jl groupby
+    defaults).  With two columns the result has ``c1`` as its first column and
+    the ``c2`` categories as the remaining columns; missing combinations are 0.
+    """
+    if c2 is None:
+        return (df.group_by(c1, maintain_order=True).len()
+                  .rename({"len": "count"}))
+    t = (df.group_by([c1, c2], maintain_order=True).len()
+           .pivot(on=c2, index=c1, values="len"))
+    t = t.fill_null(0)
+    num_cols = [c for c in t.columns if c != c1]
+    return t.with_columns([pl.col(c).cast(pl.Int64) for c in num_cols])
+
+
+def prop(df: pl.DataFrame, digits: int = 6) -> pl.DataFrame:
+    """Cell proportions of a count table (each numeric entry / grand total).
+
+    Port of FreqTables.jl ``prop(ft)``.
+    """
+    num_cols = [c for c in df.columns if df[c].dtype.is_numeric()]
+    total = float(sum(df[c].sum() for c in num_cols))
+    return df.with_columns([(pl.col(c) / total).round(digits) for c in num_cols])
+
+
 # --------------------------------------------------------------------------- #
 # Descriptive statistics  (port of StatsBase helpers)
 # --------------------------------------------------------------------------- #
@@ -161,6 +189,20 @@ def summarystats(x: Sequence[float]) -> dict[str, float]:
         "q3": q3,
         "max": a.max(),
     }
+
+
+def zscore(x: Sequence[float], mu: float | None = None,
+           sigma: float | None = None) -> np.ndarray:
+    """Standardise ``x`` (port of StatsBase ``zscore``).
+
+    ``zscore(x)`` uses ``(x - mean) / sample_std``; ``zscore(x, mu, sigma)``
+    uses the supplied location/scale (as in exA.65 / exampleA.6).
+    """
+    a = np.asarray(x, dtype=float)
+    if mu is None or sigma is None:
+        mu = a.mean()
+        sigma = a.std(ddof=1)
+    return (a - mu) / sigma
 
 
 # --------------------------------------------------------------------------- #
@@ -642,17 +684,68 @@ def plot_dotplot(values, nbins=None, ax=None, figsize=(7, 4), title=None,
 
 
 def grouped_boxplot(cats, data, title=None, xlabel=None, ylabel=None,
-                    figsize=(7, 4)):
-    """Grouped box plot (port of ``UnicodePlots.boxplot``)."""
+                    figsize=(7, 4), vert: bool = False):
+    """Grouped box plot (port of ``UnicodePlots.boxplot`` / GLMakie boxplots).
+
+    ``vert=False`` puts categories on the y-axis (UnicodePlots style);
+    ``vert=True`` puts categories on the x-axis (GLMakie style used in UnitA).
+    """
     import matplotlib.pyplot as plt
 
     fig, ax = plt.subplots(figsize=figsize)
-    ax.boxplot([np.asarray(g, dtype=float) for g in data], vert=False,
+    ax.boxplot([np.asarray(g, dtype=float) for g in data], vert=vert,
                tick_labels=list(cats), patch_artist=True)
     ax.set_title(title or "")
-    ax.set_xlabel(xlabel or "")
-    ax.set_ylabel(ylabel or "")
+    if vert:
+        ax.set_xlabel(xlabel or "")
+        ax.set_ylabel(ylabel or "")
+    else:
+        ax.set_xlabel(xlabel or "")
+        ax.set_ylabel(ylabel or "")
     return fig, ax
+
+
+def plot_pair_cor(df, save: bool = False, ax=None, figsize=(7, 4)):
+    """Scatter plot of a two-column DataFrame (port of ``plot_pair_cor``)."""
+    import matplotlib.pyplot as plt
+
+    cols = list(df.columns)
+    x = df[cols[0]].to_numpy().astype(float)
+    y = df[cols[1]].to_numpy().astype(float)
+    fig, ax = _ensure_ax(ax, figsize)
+    ax.scatter(x, y, s=45, color="lightgreen", alpha=0.6,
+               edgecolors="black", linewidths=0.5)
+    ax.set_title(f"{cols[0]}-{cols[1]}-Cor")
+    ax.set_xlabel(cols[0])
+    ax.set_ylabel(cols[1])
+    if save:
+        fig.savefig(f"{cols[0]}_{cols[1]}_cor.png", dpi=150, bbox_inches="tight")
+    return fig, ax
+
+
+def plot_cor_group(data, cats=None, ncols=3, figsize=(9, 6)):
+    """Scatter matrix of every column pair (port of ``plot_cor_group``)."""
+    import matplotlib.pyplot as plt
+    from itertools import combinations
+
+    if cats is None:
+        cats = list(data.columns)
+    pairs = list(combinations(range(len(cats)), 2))
+    n = len(pairs)
+    nrows = math.ceil(n / ncols)
+    fig, axes = plt.subplots(nrows, ncols, figsize=figsize, squeeze=False)
+    for idx, (i, j) in enumerate(pairs):
+        ax = axes[idx // ncols][idx % ncols]
+        ax.scatter(data[cats[i]].to_numpy().astype(float),
+                   data[cats[j]].to_numpy().astype(float),
+                   s=12, color="lightgreen", alpha=0.5,
+                   edgecolors="black", linewidths=0.5)
+        ax.set_xlabel(cats[i])
+        ax.set_ylabel(cats[j])
+    for idx in range(n, nrows * ncols):
+        axes[idx // ncols][idx % ncols].axis("off")
+    fig.tight_layout()
+    return fig, axes
 
 
 def scatter_fit(x, y, slope, intercept, ax=None, figsize=(7, 4), title=None,
