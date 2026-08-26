@@ -3,6 +3,11 @@
 Marimo notebooks porting the Julia code in `../UnitC` to Python (git `python`
 branch).  Phase 1 covers **UnitC** only.
 
+> The `../UnitC` Julia source was **removed** after the migration was verified
+> (all 60 notebooks execute cleanly and reproduce the Julia statistical output).
+> The shared root `../utils.jl` / `../types.jl` and the other units (A, B, D, E)
+> are retained for later phases.
+
 ## Environment
 
 ```bash
