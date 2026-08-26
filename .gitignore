@@ -31,3 +31,11 @@ Icon?
 catboost_info/
 .vscode/
 
+
+# Python / marimo build & session artifacts
+__pycache__/
+*.pyc
+__marimo__/
+
+# macOS
+.DS_Store
