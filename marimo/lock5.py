@@ -284,6 +284,18 @@ def single_sample_ttest(desc: Lock5Table, mu0: float) -> TTestResult:
     return one_sample_ttest(x, mu0)
 
 
+def paired_ttest(x: Sequence[float], y: Sequence[float], mu0: float = 0.0,
+                 level: float = 0.95) -> TTestResult:
+    """Paired t-test (port of HypothesisTests ``OneSampleTTest(x, y)``).
+
+    The two-vector ``OneSampleTTest`` is a paired test: it runs a one-sample
+    t-test on the paired differences ``x - y`` (so ``parameter`` is ``Mean``
+    and ``n`` is the number of pairs, exactly as HypothesisTests reports it).
+    """
+    d = np.asarray(x, dtype=float) - np.asarray(y, dtype=float)
+    return one_sample_ttest(d, mu0, level)
+
+
 def one_sample_ztest(
     xbar: float, se: float, n: int, mu0: float = 0.0, level: float = 0.95
 ) -> TTestResult:
@@ -362,6 +374,32 @@ def unequal_var_ttest(x: Sequence[float], y: Sequence[float],
         a.mean() - b.mean(), res.statistic, res.pvalue, df, se,
         ci.low, ci.high, (len(a), len(b)), level,
     )
+
+
+def variance_ftest(x: Sequence[float], y: Sequence[float],
+                   level: float = 0.95) -> dict[str, Any]:
+    """F-test for equality of two variances (port of ``VarianceFTest``).
+
+    Returns a plain dict (the F-test has two degrees of freedom, so it is not
+    rendered through ``TTestResult``).
+    """
+    a = np.asarray(x, dtype=float)
+    b = np.asarray(y, dtype=float)
+    ratio = a.var(ddof=1) / b.var(ddof=1)
+    dfn = len(a) - 1
+    dfd = len(b) - 1
+    p = float(min(1.0, 2 * min(stats.f.cdf(ratio, dfn, dfd),
+                               stats.f.sf(ratio, dfn, dfd))))
+    return {
+        "name": "Variance F-test",
+        "parameter of interest": "variance ratio",
+        "value under h_0": 1.0,
+        "point estimate": ratio,
+        "F statistic": ratio,
+        "degrees of freedom": (dfn, dfd),
+        "two-sided p-value": p,
+        "number of observations": (len(a), len(b)),
+    }
 
 
 def equal_var_ttest_stats(nx: int, ny: int, xbar: float, ybar: float,
@@ -516,18 +554,29 @@ def fisher_exact_test(a: int, b: int, c: int, d: int,
                       level: float = 0.95) -> TTestResult:
     """Fisher's exact test on the 2x2 table ``[[a, b], [c, d]]``.
 
-    Port of HypothesisTests ``FisherExactTest(a, b, c, d)``.  The Julia version
-    builds the table ``[a b; c d]`` and reports the odds ratio ``a*d/(b*c)``
-    (i.e. the ratio of the two proportions ``a/c`` and ``b/d``).
+    Port of HypothesisTests ``FisherExactTest(a, b, c, d)`` (which builds the
+    table ``[a b; c d]``).  Matches HypothesisTests.jl semantics:
+
+    * point estimate = conditional maximum-likelihood odds ratio;
+    * two-sided p-value = ``2 * min(P(X <= x), P(X >= x))`` under the
+      hypergeometric distribution of the (1, 1) cell;
+    * confidence interval = exact conditional interval.
     """
+    from scipy.stats.contingency import odds_ratio
+
     table = [[a, b], [c, d]]
-    odds, p = stats.fisher_exact(table, alternative="two-sided")
-    # Woolf log-odds confidence interval (matches HypothesisTests.jl closely).
-    with np.errstate(divide="ignore", invalid="ignore"):
-        log_se = math.sqrt(1 / a + 1 / b + 1 / c + 1 / d)
-    z = stats.norm.ppf(1 - (1 - level) / 2)
-    lo = math.exp(math.log(odds) - z * log_se)
-    hi = math.exp(math.log(odds) + z * log_se)
+    or_res = odds_ratio(table, kind="conditional")
+    odds = float(or_res.statistic)
+    ci = or_res.confidence_interval(confidence_level=level)
+
+    # Hypergeometric two-sided p-value: X = (1, 1) cell count.
+    n_total = a + b + c + d
+    col1 = a + c
+    row1 = a + b
+    ple = stats.hypergeom.cdf(a, n_total, col1, row1)
+    pge = stats.hypergeom.sf(a - 1, n_total, col1, row1)
+    p = float(min(1.0, 2 * min(ple, pge)))
+
     return TTestResult(
         name="Fisher's exact test",
         parameter="Odds ratio",
@@ -535,9 +584,9 @@ def fisher_exact_test(a: int, b: int, c: int, d: int,
         statistic=float("nan"),
         pvalue=p,
         df=float("nan"),
-        se=log_se,
-        ci_low=lo,
-        ci_high=hi,
+        se=float("nan"),
+        ci_low=float(ci.low),
+        ci_high=float(ci.high),
         n=(a, b, c, d),  # type: ignore[assignment]
         mu0=1.0,
         level=level,
@@ -598,6 +647,25 @@ def basic_confint(boots: np.ndarray, estimate: float,
     lo = 2 * estimate - np.quantile(boots, 1 - alpha / 2)
     hi = 2 * estimate - np.quantile(boots, alpha / 2)
     return estimate, float(lo), float(hi)
+
+
+def boot_correlation(x: Sequence[float], y: Sequence[float], n: int = 1000,
+                     seed: int | None = None) -> np.ndarray:
+    """Bootstrap the Pearson correlation of paired columns ``x`` and ``y``.
+
+    Resamples rows (keeping the pairing) and returns one correlation estimate
+    per resample (port of ``bootstrap(cor, data, BasicSampling(n))`` on a
+    two-column matrix).
+    """
+    rng = np.random.default_rng(seed)
+    xa = np.asarray(x, dtype=float)
+    ya = np.asarray(y, dtype=float)
+    m = len(xa)
+    out = np.empty(n)
+    for i in range(n):
+        idx = rng.integers(0, m, m)
+        out[i] = np.corrcoef(xa[idx], ya[idx])[0, 1]
+    return out
 
 
 # --------------------------------------------------------------------------- #
