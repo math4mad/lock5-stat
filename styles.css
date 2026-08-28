@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Manrope:wght@400;500;600;700&display=swap');
+
+:root {
+    --ink: #173f5f;
+    --paper: #f7f3e8;
+    --coral: #f26457;
+    --yellow: #f6bd60;
+    --mint: #d7ead9;
+    --line: rgba(23, 63, 95, 0.18);
+}
+
+body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+}
+
+h1,
+h2,
+h3,
+.navbar-brand {
+    font-family: 'Fraunces', serif;
+    letter-spacing: 0;
+}
+
+.navbar-brand {
+    font-size: 1.45rem;
+}
+
+.hero {
+    margin: 2.5rem 0 4.5rem;
+    padding: clamp(2.5rem, 8vw, 7rem) clamp(1.5rem, 7vw, 7rem);
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 17rem;
+    height: 17rem;
+    right: -4rem;
+    bottom: -6rem;
+    border: 2rem solid var(--coral);
+    border-radius: 50%;
+    opacity: 0.9;
+}
+
+.hero h1 {
+    max-width: 780px;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.95;
+    margin: 0.8rem 0 1.5rem;
+}
+
+.hero p {
+    max-width: 580px;
+    font-size: 1.15rem;
+    line-height: 1.7;
+}
+
+.hero-kicker,
+.library-header::before {
+    font: 500 0.75rem 'DM Mono', monospace;
+    letter-spacing: 0.12em;
+    color: var(--yellow);
+}
+
+.btn-primary {
+    background: var(--coral);
+    border-color: var(--coral);
+    color: #fff;
+    margin-top: 1rem;
+}
+
+.btn-primary:hover {
+    background: #d94d43;
+    border-color: #d94d43;
+}
+
+.section-intro,
+.library-header {
+    max-width: 760px;
+    margin-bottom: 2.5rem;
+}
+
+.section-intro h2 {
+    font-size: 2.4rem;
+}
+
+.note-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0 5rem;
+}
+
+.note-card {
+    border-top: 5px solid var(--ink);
+    padding: 1.5rem;
+    min-height: 220px;
+    background: #fffdf7;
+}
+
+.note-card-accent {
+    border-color: var(--coral);
+    background: var(--mint);
+}
+
+.note-card h3 {
+    font-size: 1.7rem;
+}
+
+.note-card a {
+    display: block;
+    margin-top: 1.2rem;
+    font-weight: 700;
+}
+
+.closing-band {
+    border-top: 1px solid var(--line);
+    padding: 3rem 0 5rem;
+}
+
+.table {
+    --bs-table-bg: transparent;
+}
+
+@media (max-width: 800px) {
+    .note-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        margin-top: 1rem;
+    }
+}

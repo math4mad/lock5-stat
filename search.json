@@ -1,0 +1,93 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Project",
+    "section": "",
+    "text": "Lock5 Stat is a gradual migration of the original Julia examples to Python on the python branch.\nThe notebooks use:\n\nPolars for data loading and transformation\nSciPy and NumPy for statistical calculations\ngreat-tables for compact exploratory tables\nmarimo for executable, reactive notes\nQuarto for the project index and published notebook library\n\nThe source data lives in data/, and shared statistical behavior is kept in marimo/lock5.py. The website restores the course layout as UnitA (chapters 1–2), UnitB (chapters 3–4), UnitC (chapters 5–6 plus case studies and exercises), UnitD, UnitE, and temp studies.\n\n\nFrom the repository root:\n./website/export-notes.sh\nquarto preview website\nThe export step is repeatable, discovers Python notebooks under marimo/, and publishes them into the matching UnitA–UnitE or temp directory. A notebook that fails to export is skipped and reported so the rest of the site remains usable."
+  },
+  {
+    "objectID": "about.html#publish-locally",
+    "href": "about.html#publish-locally",
+    "title": "Project",
+    "section": "",
+    "text": "From the repository root:\n./website/export-notes.sh\nquarto preview website\nThe export step is repeatable, discovers Python notebooks under marimo/, and publishes them into the matching UnitA–UnitE or temp directory. A notebook that fails to export is skipped and reported so the rest of the site remains usable."
+  },
+  {
+    "objectID": "notes.html",
+    "href": "notes.html",
+    "title": "Notebook library",
+    "section": "",
+    "text": "Rendered views of the current marimo notes, organized by the original course units. Use a source link when you want to run or edit a notebook locally."
+  },
+  {
+    "objectID": "notes.html#unita",
+    "href": "notes.html#unita",
+    "title": "Notebook library",
+    "section": "UnitA",
+    "text": "UnitA\n\n\n\nTopic\nRendered note\nSource\n\n\n\n\nData1.5\nData1.5\nPython\n\n\nExample1.5\nExample1.5\nPython\n\n\nExercise1.74\nExercise1.74\nPython\n\n\nIcu Admissions Description\nIcu Admissions Description\nPython\n\n\nData.2.2\nData.2.2\nPython\n\n\nData.2.3\nData.2.3\nPython\n\n\nData2.12\nData2.12\nPython\n\n\nData2.9\nData2.9\nPython\n\n\nDistribution Birth Rate\nDistribution Birth Rate\nPython\n\n\nEx2.164\nEx2.164\nPython\n\n\nEx2.169\nEx2.169\nPython\n\n\nEx2.171\nEx2.171\nPython\n\n\nEx2.172\nEx2.172\nPython\n\n\nEx2.173\nEx2.173\nPython\n\n\nEx2.177\nEx2.177\nPython\n\n\nEx2.178\nEx2.178\nPython\n\n\nEx2.179\nEx2.179\nPython\n\n\nEx2.180\nEx2.180\nPython\n\n\nEx2.224\nEx2.224\nPython\n\n\nEx2.226\nEx2.226\nPython\n\n\nEx2.333\nEx2.333\nPython\n\n\nExample 2.19 Zscore\nExample 2.19 Zscore\nPython\n\n\nExample 2.29 Watch Tv\nExample 2.29 Watch Tv\nPython\n\n\nExample.2 31\nExample.2 31\nPython\n\n\nExample2.14\nExample2.14\nPython\n\n\nExample2.34\nExample2.34\nPython\n\n\nExample2.9\nExample2.9\nPython\n\n\nFloridalakes Dataset\nFloridalakes Dataset\nPython\n\n\nFloridalakes Scatter Plot\nFloridalakes Scatter Plot\nPython\n\n\nLongevity Mammals Dotplot\nLongevity Mammals Dotplot\nPython\n\n\nMath Verbal Cor\nMath Verbal Cor\nPython\n\n\nTwo Way Table Studentsurvey 1\nTwo Way Table Studentsurvey 1\nPython\n\n\nTwo Way Table Studentsurvey 2\nTwo Way Table Studentsurvey 2\nPython\n\n\nTwo Way Table Truelove\nTwo Way Table Truelove\nPython\n\n\nYoungblood Dataset\nYoungblood Dataset\nPython"
+  },
+  {
+    "objectID": "notes.html#unitb",
+    "href": "notes.html#unitb",
+    "title": "Notebook library",
+    "section": "UnitB",
+    "text": "UnitB\n\n\n\nTopic\nRendered note\nSource\n\n\n\n\nBaseball Salary Dot Plot\nBaseball Salary Dot Plot\nPython\n\n\nBootstrap Sampling Method 1\nBootstrap Sampling Method 1\nPython\n\n\nBootstrap Sampling Method 2\nBootstrap Sampling Method 2\nPython\n\n\nCommuteatlanta Bootstrap Ci\nCommuteatlanta Bootstrap Ci\nPython\n\n\nCommuteatlanta Bootstrap Sampling\nCommuteatlanta Bootstrap Sampling\nPython\n\n\nData3.1 Mlb Salary\nData3.1 Mlb Salary\nPython\n\n\nData3.3 Atlantcommute\nData3.3 Atlantcommute\nPython\n\n\nDist Band\nDist Band\nPython\n\n\nEx3.100 Immune Tea\nEx3.100 Immune Tea\nPython\n\n\nEx3.90 Hitchhiker Snails Bootstrap Sampling\nEx3.90 Hitchhiker Snails Bootstrap Sampling\nPython\n\n\nEx3.95\nEx3.95\nPython\n\n\nEx3.97 Rat Compassion\nEx3.97 Rat Compassion\nPython\n\n\nExample3.20\nExample3.20\nPython\n\n\nExample3.22\nExample3.22\nPython\n\n\nExercise Hours Bs\nExercise Hours Bs\nPython\n\n\nMixed Nuts With Peanuts Bootstrap\nMixed Nuts With Peanuts Bootstrap\nPython\n\n\nMlb Salary Tabletranformers\nMlb Salary Tabletranformers\nPython\n\n\nMustang Price Cor Bs\nMustang Price Cor Bs\nPython\n\n\nAcid Mercury Cor Ttest\nAcid Mercury Cor Ttest\nPython\n\n\nAdapt Noadapt Behavior To Fireants\nAdapt Noadapt Behavior To Fireants\nPython\n\n\nBody Tempature Ttest\nBody Tempature Ttest\nPython\n\n\nCola Calcium\nCola Calcium\nPython\n\n\nData4.1 Light Weight Ttest\nData4.1 Light Weight Ttest\nPython\n\n\nData4.2 Uniform Penality\nData4.2 Uniform Penality\nPython\n\n\nData4.5 Smile Punishment Diff Ttest\nData4.5 Smile Punishment Diff Ttest\nPython\n\n\nData4.7 Cocaine Addiction Medication\nData4.7 Cocaine Addiction Medication\nPython\n\n\nEx4.127\nEx4.127\nPython\n\n\nEx4.128\nEx4.128\nPython\n\n\nEx4.131 Homing Pigeons Speed Ttest\nEx4.131 Homing Pigeons Speed Ttest\nPython\n\n\nEx4.132 3 Heat Effect Cognition\nEx4.132 3 Heat Effect Cognition\nPython\n\n\nEx4.134\nEx4.134\nPython\n\n\nEx4.143 144 Lizards Adapt To Fireants\nEx4.143 144 Lizards Adapt To Fireants\nPython\n\n\nEx4.182 Fly Mate Choice Affect Offspring\nEx4.182 Fly Mate Choice Affect Offspring\nPython\n\n\nEx4.201\nEx4.201\nPython\n\n\nEx4.205\nEx4.205\nPython\n\n\nEx4.206\nEx4.206\nPython\n\n\nEx4.212\nEx4.212\nPython\n\n\nEx4.215\nEx4.215\nPython\n\n\nEx4.75 Finger Tapping Caffeine Diff Ttest\nEx4.75 Finger Tapping Caffeine Diff Ttest\nPython\n\n\nFtest 1\nFtest 1\nPython\n\n\nHusband Wife Age Diff Ttest\nHusband Wife Age Diff Ttest\nPython\n\n\nManhattan Apartment Rent\nManhattan Apartment Rent\nPython\n\n\nNormal Dist Hist\nNormal Dist Hist\nPython\n\n\nPvalue Tdist\nPvalue Tdist\nPython\n\n\nUniforms Penalties Cor Ttest\nUniforms Penalties Cor Ttest\nPython\n\n\nZhypotheistest Template\nZhypotheistest Template\nPython"
+  },
+  {
+    "objectID": "notes.html#unitc",
+    "href": "notes.html#unitc",
+    "title": "Notebook library",
+    "section": "UnitC",
+    "text": "UnitC\n\n\n\nTopic\nRendered note\nSource\n\n\n\n\nData C.1\nData C.1\nPython\n\n\nExample C.1\nExample C.1\nPython\n\n\nExample C.2\nExample C.2\nPython\n\n\nExample C.4\nExample C.4\nPython\n\n\nExample C.5\nExample C.5\nPython\n\n\nExample C.6\nExample C.6\nPython\n\n\nExample C.7\nExample C.7\nPython\n\n\nFta Ci\nFta Ci\nPython\n\n\nFta Ft Proportion\nFta Ft Proportion\nPython\n\n\nHome Ft Rating\nHome Ft Rating\nPython\n\n\nHome Opponent Ft Diff\nHome Opponent Ft Diff\nPython\n\n\nHome Opponent Fta Diff\nHome Opponent Fta Diff\nPython\n\n\nData\nData\nPython\n\n\nExample B2\nExample B2\nPython\n\n\nExample B3\nExample B3\nPython\n\n\nExample B4\nExample B4\nPython\n\n\nExample B6\nExample B6\nPython\n\n\nDataa.1\nDataa.1\nPython\n\n\nExamplea.1\nExamplea.1\nPython\n\n\nExamplea.2\nExamplea.2\nPython\n\n\nExamplea.4\nExamplea.4\nPython\n\n\nExamplea.5\nExamplea.5\nPython\n\n\nExamplea.6\nExamplea.6\nPython\n\n\nExamplea.7\nExamplea.7\nPython\n\n\nExamplea.8\nExamplea.8\nPython\n\n\nExamplea.9\nExamplea.9\nPython\n\n\nEx C.15\nEx C.15\nPython\n\n\nEx C.16\nEx C.16\nPython\n\n\nEx C.17\nEx C.17\nPython\n\n\nEx C.18\nEx C.18\nPython\n\n\nEx C.19\nEx C.19\nPython\n\n\nExa.42\nExa.42\nPython\n\n\nExa.44\nExa.44\nPython\n\n\nExa.65\nExa.65\nPython\n\n\nExa.94\nExa.94\nPython\n\n\nUnitb Ex 03\nUnitb Ex 03\nPython\n\n\nUnitb Ex 06\nUnitb Ex 06\nPython\n\n\nUnitb Ex 07\nUnitb Ex 07\nPython\n\n\nUnitb Ex 28\nUnitb Ex 28\nPython\n\n\nBody Tempature\nBody Tempature\nPython\n\n\nConfidence Interval\nConfidence Interval\nPython\n\n\nDist Band\nDist Band\nPython\n\n\nEx 5.53\nEx 5.53\nPython\n\n\nEx 5.54\nEx 5.54\nPython\n\n\nEx 5.55\nEx 5.55\nPython\n\n\nExample 5 10\nExample 5 10\nPython\n\n\nExample 5.16\nExample 5.16\nPython\n\n\nGaussian Dist\nGaussian Dist\nPython\n\n\nNormal Dist Hist 2\nNormal Dist Hist 2\nPython\n\n\nSkill Building 2\nSkill Building 2\nPython\n\n\nConfidence Interval For Proportion\nConfidence Interval For Proportion\nPython\n\n\nData 6.1 Proportion Ttest\nData 6.1 Proportion Ttest\nPython\n\n\nData 6.2 Boston San Francisco Flight Times\nData 6.2 Boston San Francisco Flight Times\nPython\n\n\nData 6.3 Crows Never Forget Face Proportion\nData 6.3 Crows Never Forget Face Proportion\nPython\n\n\nData 6.5 Swimming Suit\nData 6.5 Swimming Suit\nPython\n\n\nEx 6.100\nEx 6.100\nPython\n\n\nEx 6.102\nEx 6.102\nPython\n\n\nEx 6.137\nEx 6.137\nPython\n\n\nEx 6.138\nEx 6.138\nPython\n\n\nEx 6.139\nEx 6.139\nPython\n\n\nEx 6.140 Florida Lakes Acid Ttest\nEx 6.140 Florida Lakes Acid Ttest\nPython\n\n\nEx 6.158\nEx 6.158\nPython\n\n\nEx 6.231\nEx 6.231\nPython\n\n\nEx 6.236\nEx 6.236\nPython\n\n\nEx 6.242\nEx 6.242\nPython\n\n\nEx 6.243\nEx 6.243\nPython\n\n\nEx 6.248\nEx 6.248\nPython\n\n\nEx 6.249\nEx 6.249\nPython\n\n\nEx 6.60 Multiple Choice Exam\nEx 6.60 Multiple Choice Exam\nPython\n\n\nEx 6.67 Percent Smokers Rate\nEx 6.67 Percent Smokers Rate\nPython\n\n\nEx 6.85\nEx 6.85\nPython\n\n\nEx 6.99\nEx 6.99\nPython\n\n\nExample 6.11\nExample 6.11\nPython\n\n\nExample 6.15\nExample 6.15\nPython\n\n\nExample 6.18 Florida Lakes Alkalinity Ttest\nExample 6.18 Florida Lakes Alkalinity Ttest\nPython\n\n\nExample 6.19 True Love Proportion\nExample 6.19 True Love Proportion\nPython\n\n\nExample 6.25\nExample 6.25\nPython\n\n\nExample 6.26\nExample 6.26\nPython\n\n\nExample 6.27\nExample 6.27\nPython\n\n\nNba Players Fouls Ttest\nNba Players Fouls Ttest\nPython\n\n\nRegular Vitamin Use Rate\nRegular Vitamin Use Rate\nPython\n\n\nRock Paper Scissors Proportion Ttest\nRock Paper Scissors Proportion Ttest\nPython"
+  },
+  {
+    "objectID": "notes.html#unitd",
+    "href": "notes.html#unitd",
+    "title": "Notebook library",
+    "section": "UnitD",
+    "text": "UnitD\n\n\n\nTopic\nRendered note\nSource\n\n\n\n\nExample D.1\nExample D.1\nPython\n\n\nExample 7.9\nExample 7.9\nPython\n\n\nAnt Taste Anova\nAnt Taste Anova\nPython"
+  },
+  {
+    "objectID": "notes.html#unite",
+    "href": "notes.html#unite",
+    "title": "Notebook library",
+    "section": "UnitE",
+    "text": "UnitE\n\n\n\nTopic\nRendered note\nSource\n\n\n\n\nData E 1\nData E 1\nPython\n\n\nExercise E5\nExercise E5\nPython"
+  },
+  {
+    "objectID": "notes.html#temp-studies",
+    "href": "notes.html#temp-studies",
+    "title": "Notebook library",
+    "section": "Temp studies",
+    "text": "Temp studies\n\n\n\nTopic\nRendered note\nSource\n\n\n\n\nBodytemp Anderson Darling\nBodytemp Anderson Darling\nPython\n\n\nGenetic Diversity\nGenetic Diversity\nPython\n\n\nHeight Data\nHeight Data\nPython\n\n\nHotdogs Summary\nHotdogs Summary\nPython\n\n\nIcu Admissions Heart Rate\nIcu Admissions Heart Rate\nPython\n\n\nRestaurant Tips Regression\nRestaurant Tips Regression\nPython"
+  },
+  {
+    "objectID": "notes.html#source-layout",
+    "href": "notes.html#source-layout",
+    "title": "Notebook library",
+    "section": "Source layout",
+    "text": "Source layout\nThe published structure follows the migration units: UnitA contains chapters 1–2, UnitB contains chapters 3–4, and UnitC contains chapters 5–6 plus case studies and exercises. UnitD, UnitE, and temp retain their own directories."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Lock5 Stat",
+    "section": "",
+    "text": "PYTHON BRANCH / MARIMO NOTEBOOKS\n\n\n\nA growing field guide to the Lock5 Statistics examples, rebuilt with Python, Polars, SciPy, great-tables, and marimo.\nBrowse the notes"
+  },
+  {
+    "objectID": "index.html#start-with-a-question",
+    "href": "index.html#start-with-a-question",
+    "title": "Lock5 Stat",
+    "section": "Start with a question",
+    "text": "Start with a question\nEach note keeps the original statistical idea in view while making the data, calculation, and result inspectable. The exported pages are static snapshots; the linked source notebooks remain the place to experiment."
+  },
+  {
+    "objectID": "index.html#built-to-stay-close-to-the-data",
+    "href": "index.html#built-to-stay-close-to-the-data",
+    "title": "Lock5 Stat",
+    "section": "Built to stay close to the data",
+    "text": "Built to stay close to the data\nThe shared marimo/lock5.py layer keeps loading, descriptive statistics, tests, and presentation helpers consistent across notes."
+  }
+]
